@@ -1,0 +1,21 @@
+global:   
+   scrape_interval:     10s
+   evaluation_interval: 10s
+
+rule_files:
+  - "node_rules.yml"
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - alertmanager:9093
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['prometheus:9090']
+  - job_name: 'nodes'
+    static_configs:
+    - targets: ['node-exporter:9100','192.168.127.10:9100']
+
